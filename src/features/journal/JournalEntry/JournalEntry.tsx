@@ -13,8 +13,8 @@ let JournalEntry = ({ entryID }: EntryProps) => {
 	const { date, rating, drink, comment, locationName } = entry as EntryJournal;
 	return (
 		<article style={{ maxWidth: "40rem", marginInline: "auto", marginBottom: "2rem" }} key={entryID}>
-			<div style={{ display: "flex" }}>
-				<span>{locationName}</span>
+			<div style={{ display: "flex", alignItems: "center" }}>
+				<span style={{ fontWeight: "bold", fontSize: "1.5rem" }}>{locationName}</span>
 				<span style={{ marginLeft: "auto" }}>{`${date}`}</span>
 			</div>
 			<div style={{ display: "flex" }}>

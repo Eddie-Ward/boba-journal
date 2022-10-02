@@ -11,9 +11,9 @@ export interface EntryJournal {
 }
 
 export interface StoreLocation {
+	PLACE_ID: EntityId;
 	lat: number;
 	lng: number;
-	PLACE_ID: EntityId;
 	locationName: string;
 	address: string;
 	priceLevel: number;
@@ -23,8 +23,7 @@ export interface StoreLocation {
 }
 
 export interface EntryTierlist {
-	ENTRY_ID: EntityId;
-	journalEntryIDS: EntityId[];
-	placeID: EntityId;
+	PLACE_ID: EntityId;
+	journalEntryIDs: EntityId[];
 	ranking: number;
 }

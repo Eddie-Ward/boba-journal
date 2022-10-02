@@ -13,7 +13,9 @@ const journalSlice = createSlice({
 	name: "journal",
 	initialState,
 	reducers: {
-		addNewEntry(state, action) {},
+		addNewEntry(state, action: PayloadAction<EntryJournal>) {
+			journalAdapter.addOne(state, action.payload);
+		},
 		addFakeEntries(state, action: PayloadAction<Record<EntityId, EntryJournal>>) {
 			journalAdapter.addMany(state, action.payload);
 		},
