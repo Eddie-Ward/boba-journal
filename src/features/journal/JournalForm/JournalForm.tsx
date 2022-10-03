@@ -1,6 +1,6 @@
 import { EntityId, nanoid } from "@reduxjs/toolkit";
 import React, { FormEvent, useRef } from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { EntryJournal } from "../../../app/stateTypes";
 import { addNewEntry } from "../journalSlice";
 
