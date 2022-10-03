@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 
 const journalAdapter = createEntityAdapter<EntryJournal>({
 	selectId: (entry) => entry.ENTRY_ID,
-	sortComparer: (a, b) => b.date.localeCompare(a.date),
+	sortComparer: (a, b) => b.date - a.date,
 });
 
 const initialState = journalAdapter.getInitialState();

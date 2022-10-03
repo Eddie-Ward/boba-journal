@@ -11,11 +11,12 @@ interface EntryProps {
 let JournalEntry = ({ entryID }: EntryProps) => {
 	const entry = useAppSelector((state) => selectEntryByID(state, entryID));
 	const { date, rating, drink, comment, locationName } = entry as EntryJournal;
+	const stringDate = new Date(date).toDateString();
 	return (
 		<article style={{ maxWidth: "40rem", marginInline: "auto", marginBottom: "2rem" }} key={entryID}>
 			<div style={{ display: "flex", alignItems: "center" }}>
 				<span style={{ fontWeight: "bold", fontSize: "1.5rem" }}>{locationName}</span>
-				<span style={{ marginLeft: "auto" }}>{`${date}`}</span>
+				<span style={{ marginLeft: "auto" }}>{`${stringDate}`}</span>
 			</div>
 			<div style={{ display: "flex" }}>
 				<p>{drink}</p>

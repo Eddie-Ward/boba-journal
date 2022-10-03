@@ -8,7 +8,7 @@ const TierList = () => {
 
 	return (
 		<div>
-			<h1>Tierlist Entries</h1>
+			<h1 style={{ textAlign: "center" }}>Tierlist Entries</h1>
 			{tierListEntryIDs.map((entryID) => (
 				<TierListEntry key={entryID} entryID={entryID} />
 			))}

@@ -16,6 +16,7 @@ const LOCATION_NAME: Record<string, string> = {
 const JournalForm = () => {
 	const dispatch = useAppDispatch();
 
+	const formRef = useRef<HTMLFormElement>(null);
 	const dateRef = useRef<HTMLInputElement>(null);
 	const ratingRef = useRef<HTMLInputElement>(null);
 	const drinkRef = useRef<HTMLInputElement>(null);
@@ -26,31 +27,32 @@ const JournalForm = () => {
 		e.preventDefault();
 		const newEntry: EntryJournal = {
 			ENTRY_ID: nanoid() as EntityId,
-			date: dateRef.current?.value || "10/1/22",
-			rating: Number(ratingRef.current?.value) || 5,
+			date: dateRef.current?.value ? dateRef.current.valueAsNumber! : Date.now(),
+			rating: ratingRef.current?.value ? Number(ratingRef.current.value) : 5,
 			drink: drinkRef.current?.value || "Milk Tea",
 			comment: commentRef.current?.value || "",
 			locationName: LOCATION_NAME[locationRef.current?.value || "A"],
-			placeID: locationRef.current?.value || "A",
+			placeID: locationRef.current?.value || (nanoid() as EntityId),
 		};
 		console.log(newEntry);
 		dispatch(addNewEntry(newEntry));
+		formRef.current?.reset();
 	};
 
 	return (
 		<div style={{ maxWidth: "40rem", marginInline: "auto" }}>
-			<form onSubmit={(e) => handleSubmit(e)} action="">
+			<form ref={formRef} onSubmit={(e) => handleSubmit(e)} action="">
 				<h2>Add a new entry</h2>
 				<div style={{ marginLeft: "2rem", textAlign: "left" }}>
-					<label htmlFor="entry-date">Date: </label>
-					<input ref={dateRef} type="date" name="" id="entry-date" />
+					<label htmlFor="date">Date: </label>
+					<input ref={dateRef} type="date" name="" id="date" />
 					<label htmlFor="rating">Rating: </label>
 					<input ref={ratingRef} type="number" name="" id="rating" />
 					<label htmlFor="drink">Drink: </label>
 					<input ref={drinkRef} type="text" name="" id="drink" />
 				</div>
 				<div style={{ marginTop: "1rem", textAlign: "left", marginLeft: "2rem" }}>
-					<select ref={locationRef} name="" id="Location">
+					<select ref={locationRef} name="" id="location">
 						<option value="A">Gong Cha</option>
 						<option value="B">Happy Lemon</option>
 						<option value="C">TP Tea</option>

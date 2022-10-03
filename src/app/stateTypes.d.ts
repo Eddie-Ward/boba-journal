@@ -2,7 +2,7 @@ import { EntityId } from "@reduxjs/toolkit";
 
 export interface EntryJournal {
 	ENTRY_ID: EntityId;
-	date: string;
+	date: number;
 	rating: number;
 	drink: string;
 	comment: string;

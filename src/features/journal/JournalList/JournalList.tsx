@@ -8,7 +8,7 @@ import { addFakeEntries, selectEntryIDs } from "../journalSlice";
 const samples: Record<EntityId, EntryJournal> = {
 	"1": {
 		ENTRY_ID: "1",
-		date: "2022-9-12",
+		date: new Date(2022, 8, 12).getTime(),
 		rating: 4,
 		drink: "Oolong Milk Tea",
 		comment: "Flavor is watered down",
@@ -17,7 +17,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"2": {
 		ENTRY_ID: "2",
-		date: "2022-9-14",
+		date: new Date(2022, 8, 12).getTime(),
 		rating: 2,
 		drink: "Oolong Milk Tea",
 		comment: "No flavor and too sweet",
@@ -26,7 +26,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"3": {
 		ENTRY_ID: "3",
-		date: "2022-9-16",
+		date: new Date(2022, 8, 16).getTime(),
 		rating: 10,
 		drink: "Oolong Milk Tea",
 		comment: "Amazing",
@@ -35,7 +35,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"4": {
 		ENTRY_ID: "4",
-		date: "2022-9-18",
+		date: new Date(2022, 9, 14).getTime(),
 		rating: 8,
 		drink: "Coffee Jelly Milk Tea",
 		comment: "Overall good but expensive",
@@ -44,7 +44,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"5": {
 		ENTRY_ID: "5",
-		date: "2022-9-20",
+		date: new Date(2022, 8, 14).getTime(),
 		rating: 5,
 		drink: "Wintermelon Green Tea",
 		comment: "Good relative to price",
@@ -63,7 +63,7 @@ const JournalList = () => {
 
 	return (
 		<div>
-			<h1>Journal Entries</h1>
+			<h1 style={{ textAlign: "center" }}>Journal Entries</h1>
 			{journalEntryIDs.map((entryID) => (
 				<JournalEntry key={entryID} entryID={entryID} />
 			))}
