@@ -10,6 +10,7 @@ const LOCATION_NAME: Record<string, string> = {
 	C: "TP Tea",
 	D: "Yifang",
 	E: "Kung Fu Tea",
+	F: "Wanpo Tea",
 };
 
 const JournalForm = () => {
@@ -55,6 +56,7 @@ const JournalForm = () => {
 						<option value="C">TP Tea</option>
 						<option value="D">Yifang</option>
 						<option value="E">Kung Fu Tea</option>
+						<option value="F">Wanpo Tea</option>
 					</select>
 				</div>
 				<div style={{ marginLeft: "2rem", textAlign: "left" }}>

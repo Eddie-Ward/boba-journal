@@ -8,7 +8,7 @@ import { addFakeEntries, selectEntryIDs } from "../journalSlice";
 const samples: Record<EntityId, EntryJournal> = {
 	"1": {
 		ENTRY_ID: "1",
-		date: "9/12/22",
+		date: "2022-9-12",
 		rating: 4,
 		drink: "Oolong Milk Tea",
 		comment: "Flavor is watered down",
@@ -17,7 +17,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"2": {
 		ENTRY_ID: "2",
-		date: "9/14/22",
+		date: "2022-9-14",
 		rating: 2,
 		drink: "Oolong Milk Tea",
 		comment: "No flavor and too sweet",
@@ -26,7 +26,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"3": {
 		ENTRY_ID: "3",
-		date: "9/16/22",
+		date: "2022-9-16",
 		rating: 10,
 		drink: "Oolong Milk Tea",
 		comment: "Amazing",
@@ -35,7 +35,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"4": {
 		ENTRY_ID: "4",
-		date: "9/18/22",
+		date: "2022-9-18",
 		rating: 8,
 		drink: "Coffee Jelly Milk Tea",
 		comment: "Overall good but expensive",
@@ -44,7 +44,7 @@ const samples: Record<EntityId, EntryJournal> = {
 	},
 	"5": {
 		ENTRY_ID: "5",
-		date: "9/20/22",
+		date: "2022-9-20",
 		rating: 5,
 		drink: "Wintermelon Green Tea",
 		comment: "Good relative to price",
