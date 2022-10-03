@@ -25,5 +25,7 @@ export interface StoreLocation {
 export interface EntryTierlist {
 	PLACE_ID: EntityId;
 	journalEntryIDs: EntityId[];
+	locationName: string;
 	ranking: number;
+	avgRating: number;
 }
