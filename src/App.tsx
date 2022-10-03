@@ -4,7 +4,6 @@ import JournalForm from "./features/journal/JournalForm/JournalForm";
 import TierList from "./features/tierlist/TierList/TierList";
 import { useLoadScript } from "@react-google-maps/api";
 import AppMap from "./features/map/AppMap/AppMap";
-import AppMapTest from "./features/map/AppMap/AppMapTest";
 
 function App() {
 	console.log("App re-rendered");
