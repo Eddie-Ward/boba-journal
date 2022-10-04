@@ -59,9 +59,6 @@ const SearchLocation = () => {
 						renderInput={(params) => (
 							<Textfield onChange={handleInput} {...params} variant="filled" label="Location" />
 						)}
-						// renderOption={(props, option, state) => (
-						// 	<p onClick={() => handleSelect(option)}>{option.description}</p>
-						// )}
 					/>
 				</ClickAwayListener>
 				{renderMap && <AppMap lat={center.lat} lng={center.lng} />}

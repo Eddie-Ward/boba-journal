@@ -4,15 +4,19 @@ import { useAppDispatch } from "../../../app/hooks";
 import { addPlacesResults } from "../locationSlice";
 import { StoreLocation } from "../../../app/stateTypes";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
+import MapStyle from "../../../assets/styles/MapStyle.json";
+import BobaMarker from "../../../assets/imgs/BobaMarker.png";
+import AppMapMarker from "./AppMapMarker";
 
-// const center = {
-// 	lat: 37.29,
-// 	lng: -122.01,
-// };
+const mapOptions: google.maps.MapOptions = {
+	styles: MapStyle,
+	clickableIcons: false,
+	disableDefaultUI: true,
+};
 
 const containerStyle = {
-	width: "400px",
-	height: "400px",
+	width: "60rem",
+	height: "60rem",
 };
 
 interface MapProps {
@@ -29,6 +33,15 @@ function AppMap({ lat, lng }: MapProps) {
 	const center = useMemo(() => {
 		return { lat: lat, lng: lng };
 	}, [lat, lng]);
+
+	const bobaIcon: google.maps.Icon = useMemo(
+		() => ({
+			url: BobaMarker,
+			scaledSize: new window.google.maps.Size(30, 30),
+			labelOrigin: new window.google.maps.Point(15, 50),
+		}),
+		[]
+	);
 
 	const onLoad = useCallback(
 		(map: google.maps.Map) => {
@@ -71,10 +84,23 @@ function AppMap({ lat, lng }: MapProps) {
 	);
 
 	return (
-		<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12} onLoad={onLoad}>
+		<GoogleMap mapContainerStyle={containerStyle} options={mapOptions} center={center} zoom={12} onLoad={onLoad}>
 			{results.length > 0 &&
 				results.map(
-					(res) => res.geometry?.location && <Marker key={res.place_id} position={res.geometry.location} />
+					(res) =>
+						res.geometry?.location && (
+							<AppMapMarker
+								key={res.place_id}
+								id={res.place_id ?? ""}
+								position={res.geometry.location}
+								icon={bobaIcon}
+							/>
+							// <Marker
+							// 	key={res.place_id}
+							// 	position={res.geometry.location}
+							// 	onMouseOver={(e) => console.log(e)}
+							// />
+						)
 				)}
 		</GoogleMap>
 	);
