@@ -1,8 +1,10 @@
 import { EntityId, nanoid } from "@reduxjs/toolkit";
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { EntryJournal } from "../../../app/stateTypes";
+import { selectAllLocations, selectLocationByID, selectLocationIDs } from "../../location/locationSlice";
 import { addNewEntry } from "../journalSlice";
+import JournalFormLocations from "./JournalFormLocations";
 
 const LOCATION_NAME: Record<string, string> = {
 	A: "Gong Cha",
@@ -15,6 +17,7 @@ const LOCATION_NAME: Record<string, string> = {
 
 const JournalForm = () => {
 	const dispatch = useAppDispatch();
+	const places = useAppSelector(selectAllLocations);
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const dateRef = useRef<HTMLInputElement>(null);
@@ -25,14 +28,18 @@ const JournalForm = () => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
+
+		const id = locationRef.current?.value;
+		const locationName = id ? places.filter((res) => res.PLACE_ID === id)[0].locationName : "";
+
 		const newEntry: EntryJournal = {
 			ENTRY_ID: nanoid() as EntityId,
 			date: dateRef.current?.value ? dateRef.current.valueAsNumber! : Date.now(),
 			rating: ratingRef.current?.value ? Number(ratingRef.current.value) : 5,
 			drink: drinkRef.current?.value || "Milk Tea",
 			comment: commentRef.current?.value || "",
-			locationName: LOCATION_NAME[locationRef.current?.value || "A"],
-			placeID: locationRef.current?.value || (nanoid() as EntityId),
+			locationName: locationName,
+			placeID: id || nanoid(),
 		};
 		console.log(newEntry);
 		dispatch(addNewEntry(newEntry));
@@ -53,12 +60,17 @@ const JournalForm = () => {
 				</div>
 				<div style={{ marginTop: "1rem", textAlign: "left", marginLeft: "2rem" }}>
 					<select ref={locationRef} name="" id="location">
-						<option value="A">Gong Cha</option>
+						{/* <option value="A">Gong Cha</option>
 						<option value="B">Happy Lemon</option>
 						<option value="C">TP Tea</option>
 						<option value="D">Yifang</option>
 						<option value="E">Kung Fu Tea</option>
-						<option value="F">Wanpo Tea</option>
+						<option value="F">Wanpo Tea</option> */}
+						{places.map((place) => (
+							<option key={place.PLACE_ID} value={place.PLACE_ID}>
+								{place.locationName}
+							</option>
+						))}
 					</select>
 				</div>
 				<div style={{ marginLeft: "2rem", textAlign: "left" }}>

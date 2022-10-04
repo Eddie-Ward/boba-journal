@@ -1,5 +1,4 @@
 import { createSlice, createSelector, createEntityAdapter, PayloadAction, EntityId, nanoid } from "@reduxjs/toolkit";
-import { resourceLimits } from "worker_threads";
 import { StoreLocation } from "../../app/stateTypes";
 import { RootState } from "../../app/store";
 
@@ -40,9 +39,9 @@ const locationSlice = createSlice({
 });
 
 export const {
-	selectAll: selectAllTierEntries,
-	selectById: selectTierEntryByID,
-	selectIds: selectTierEntryIDs,
+	selectAll: selectAllLocations,
+	selectById: selectLocationByID,
+	selectIds: selectLocationIDs,
 } = locationAdapter.getSelectors((state: RootState) => state.location);
 
 export const { addPlacesResults } = locationSlice.actions;

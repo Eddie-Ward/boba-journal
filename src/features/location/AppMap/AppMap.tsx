@@ -6,8 +6,8 @@ import { StoreLocation } from "../../../app/stateTypes";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
 
 const center = {
-	lat: 37.339,
-	lng: -121.89,
+	lat: 37.29,
+	lng: -122.01,
 };
 
 const containerStyle = {
