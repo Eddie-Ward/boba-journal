@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
-import Autocomplete, { AutocompleteChangeReason, AutocompleteCloseReason } from "@mui/material/Autocomplete";
+import Autocomplete, { AutocompleteCloseReason } from "@mui/material/Autocomplete";
 import Textfield from "@mui/material/TextField";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import AppMap from "../AppMap/AppMap";
 
 const SearchLocation = () => {
 	const {
@@ -12,6 +13,9 @@ const SearchLocation = () => {
 		setValue,
 		clearSuggestions,
 	} = usePlacesAutocomplete({ debounce: 300 });
+
+	const [renderMap, setRenderMap] = useState(false);
+	const [center, setCenter] = useState({ lat: 0, lng: 0 });
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
@@ -26,41 +30,42 @@ const SearchLocation = () => {
 			getGeocode({ address: target.innerText })
 				.then((results) => getLatLng(results[0]))
 				.then(({ lat, lng }) => {
-					console.log("📍 Coordinates: ", { lat, lng });
+					console.log("Coordinates: ", { lat, lng });
+					setCenter({ lat: lat, lng: lng });
+					setRenderMap(true);
 				})
 				.catch((error) => {
-					console.log("😱 Error: ", error);
+					console.log("Error: ", error);
 				});
 		}
-		// When user selects a place, we can replace the keyword without request data from API
-		// by setting the second parameter to "false"
-
-		// Get latitude and longitude via utility functions
 	};
 
-	if (true) {
+	if (ready) {
 		return (
-			<ClickAwayListener onClickAway={() => clearSuggestions()}>
-				<Autocomplete
-					id="search-combo-box"
-					getOptionLabel={(option) => (typeof option === "string" ? option : option.description)}
-					autoComplete
-					includeInputInList
-					filterSelectedOptions
-					disabled={!ready}
-					loading={loading}
-					value={data.find((x) => x.description === value)}
-					filterOptions={(x) => x}
-					options={data}
-					onClose={handleSelect}
-					renderInput={(params) => (
-						<Textfield onChange={handleInput} {...params} variant="filled" label="Location" />
-					)}
-					// renderOption={(props, option, state) => (
-					// 	<p onClick={() => handleSelect(option)}>{option.description}</p>
-					// )}
-				/>
-			</ClickAwayListener>
+			<>
+				<ClickAwayListener onClickAway={() => clearSuggestions()}>
+					<Autocomplete
+						id="search-combo-box"
+						getOptionLabel={(option) => (typeof option === "string" ? option : option.description)}
+						autoComplete
+						includeInputInList
+						filterSelectedOptions
+						disabled={renderMap}
+						loading={loading}
+						value={data.find((x) => x.description === value)}
+						filterOptions={(x) => x}
+						options={data}
+						onClose={handleSelect}
+						renderInput={(params) => (
+							<Textfield onChange={handleInput} {...params} variant="filled" label="Location" />
+						)}
+						// renderOption={(props, option, state) => (
+						// 	<p onClick={() => handleSelect(option)}>{option.description}</p>
+						// )}
+					/>
+				</ClickAwayListener>
+				{renderMap && <AppMap lat={center.lat} lng={center.lng} />}
+			</>
 		);
 	} else {
 		return <div>Loading...</div>;

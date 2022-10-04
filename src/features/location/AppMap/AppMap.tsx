@@ -1,25 +1,34 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useAppDispatch } from "../../../app/hooks";
 import { addPlacesResults } from "../locationSlice";
 import { StoreLocation } from "../../../app/stateTypes";
 import { EntityId, nanoid } from "@reduxjs/toolkit";
 
-const center = {
-	lat: 37.29,
-	lng: -122.01,
-};
+// const center = {
+// 	lat: 37.29,
+// 	lng: -122.01,
+// };
 
 const containerStyle = {
 	width: "400px",
 	height: "400px",
 };
 
-function AppMap() {
+interface MapProps {
+	lat: number;
+	lng: number;
+}
+
+function AppMap({ lat, lng }: MapProps) {
 	console.log("Map re-rendered");
 
 	const [results, setResults] = useState<google.maps.places.PlaceResult[]>([]);
 	const dispatch = useAppDispatch();
+
+	const center = useMemo(() => {
+		return { lat: lat, lng: lng };
+	}, [lat, lng]);
 
 	const onLoad = useCallback(
 		(map: google.maps.Map) => {
@@ -58,7 +67,7 @@ function AppMap() {
 				}
 			});
 		},
-		[dispatch]
+		[dispatch, center]
 	);
 
 	return (
