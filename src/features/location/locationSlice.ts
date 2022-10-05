@@ -12,6 +12,7 @@ const initialState = locationAdapter.getInitialState({
 	fetchStatus: false,
 	lat: 0,
 	lng: 0,
+	selected: 0,
 });
 
 const locationSlice = createSlice({
@@ -33,6 +34,11 @@ const locationSlice = createSlice({
 		setLng(state, action: PayloadAction<number>) {
 			state.lng = action.payload;
 		},
+		setSelected(state, action: PayloadAction<EntityId>) {
+			const id = action.payload;
+			console.log(state.selected);
+			state.selected = state.ids.findIndex((element) => element === id);
+		},
 	},
 	extraReducers: (builder) => {},
 });
@@ -43,6 +49,7 @@ export const {
 	selectIds: selectLocationIDs,
 } = locationAdapter.getSelectors((state: RootState) => state.location);
 
-export const { addPlacesResults, setLocationStatus, setFetchStatus, setLat, setLng } = locationSlice.actions;
+export const { addPlacesResults, setLocationStatus, setFetchStatus, setLat, setLng, setSelected } =
+	locationSlice.actions;
 
 export default locationSlice.reducer;

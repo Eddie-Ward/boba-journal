@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import React, { useCallback, useMemo } from "react";
+import { GoogleMap } from "@react-google-maps/api";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addPlacesResults, selectLocationIDs, setFetchStatus } from "../locationSlice";
 import { StoreLocation } from "../../../app/stateTypes";
@@ -10,13 +10,12 @@ import AppMapMarker from "./AppMapMarker";
 
 const mapOptions: google.maps.MapOptions = {
 	styles: MapStyle,
-	clickableIcons: false,
 	disableDefaultUI: true,
 };
 
 const containerStyle = {
-	width: "60rem",
-	height: "60rem",
+	width: "100%",
+	height: "100%",
 };
 
 interface MapProps {
@@ -94,4 +93,4 @@ function AppMap({ lat, lng }: MapProps) {
 	);
 }
 
-export default AppMap;
+export default React.memo(AppMap);

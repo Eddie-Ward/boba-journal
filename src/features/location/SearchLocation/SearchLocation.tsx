@@ -13,7 +13,7 @@ const SearchLocation = () => {
 		suggestions: { status, loading, data },
 		setValue,
 		clearSuggestions,
-	} = usePlacesAutocomplete({ debounce: 300 });
+	} = usePlacesAutocomplete({ debounce: 1000 });
 
 	const dispatch = useAppDispatch();
 	const loadStatus = useAppSelector((state) => state.location.locationStatus);
