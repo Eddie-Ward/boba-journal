@@ -1,22 +1,18 @@
-import { useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
+import { useAppSelector } from "../../app/hooks";
 import AppMap from "../../features/location/AppMap/AppMap";
 
-const places = ["places" as const];
-
 const MapPage = () => {
-	const { isLoaded } = useJsApiLoader({
-		id: "google-map-script",
-		googleMapsApiKey: process.env.REACT_APP_MAPS_KEY!,
-		libraries: places,
-	});
+	const locationStatus = useAppSelector((state) => state.location.locationStatus);
+	const lat = useAppSelector((state) => state.location.lat);
+	const lng = useAppSelector((state) => state.location.lng);
 
-	return isLoaded ? (
+	return locationStatus ? (
 		<>
-			<div></div>
+			<AppMap lat={lat} lng={lng} />
 		</>
 	) : (
-		<div>Loading...</div>
+		<div>Enter a location!</div>
 	);
 };
 

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import Autocomplete, { AutocompleteCloseReason } from "@mui/material/Autocomplete";
 import Textfield from "@mui/material/TextField";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import AppMap from "../AppMap/AppMap";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { setLat, setLng, setLocationStatus } from "../locationSlice";
 
 const SearchLocation = () => {
 	const {
@@ -14,8 +15,10 @@ const SearchLocation = () => {
 		clearSuggestions,
 	} = usePlacesAutocomplete({ debounce: 300 });
 
-	const [renderMap, setRenderMap] = useState(false);
-	const [center, setCenter] = useState({ lat: 0, lng: 0 });
+	const dispatch = useAppDispatch();
+	const loadStatus = useAppSelector((state) => state.location.locationStatus);
+
+	console.log("Search Location re-rendered");
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
@@ -31,8 +34,9 @@ const SearchLocation = () => {
 				.then((results) => getLatLng(results[0]))
 				.then(({ lat, lng }) => {
 					console.log("Coordinates: ", { lat, lng });
-					setCenter({ lat: lat, lng: lng });
-					setRenderMap(true);
+					dispatch(setLat(lat));
+					dispatch(setLng(lng));
+					dispatch(setLocationStatus(true));
 				})
 				.catch((error) => {
 					console.log("Error: ", error);
@@ -50,7 +54,7 @@ const SearchLocation = () => {
 						autoComplete
 						includeInputInList
 						filterSelectedOptions
-						disabled={renderMap}
+						disabled={loadStatus}
 						loading={loading}
 						value={data.find((x) => x.description === value)}
 						filterOptions={(x) => x}
@@ -61,7 +65,6 @@ const SearchLocation = () => {
 						)}
 					/>
 				</ClickAwayListener>
-				{renderMap && <AppMap lat={center.lat} lng={center.lng} />}
 			</>
 		);
 	} else {

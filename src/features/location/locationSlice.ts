@@ -7,7 +7,12 @@ const locationAdapter = createEntityAdapter<StoreLocation>({
 	sortComparer: (a, b) => a.rating - b.rating,
 });
 
-const initialState = locationAdapter.getInitialState();
+const initialState = locationAdapter.getInitialState({
+	locationStatus: false,
+	fetchStatus: false,
+	lat: 0,
+	lng: 0,
+});
 
 const locationSlice = createSlice({
 	name: "location",
@@ -15,6 +20,18 @@ const locationSlice = createSlice({
 	reducers: {
 		addPlacesResults(state, action: PayloadAction<StoreLocation[]>) {
 			locationAdapter.addMany(state, action.payload);
+		},
+		setLocationStatus(state, action: PayloadAction<boolean>) {
+			state.locationStatus = action.payload;
+		},
+		setFetchStatus(state, action: PayloadAction<boolean>) {
+			state.fetchStatus = action.payload;
+		},
+		setLat(state, action: PayloadAction<number>) {
+			state.lat = action.payload;
+		},
+		setLng(state, action: PayloadAction<number>) {
+			state.lng = action.payload;
 		},
 	},
 	extraReducers: (builder) => {},
@@ -26,6 +43,6 @@ export const {
 	selectIds: selectLocationIDs,
 } = locationAdapter.getSelectors((state: RootState) => state.location);
 
-export const { addPlacesResults } = locationSlice.actions;
+export const { addPlacesResults, setLocationStatus, setFetchStatus, setLat, setLng } = locationSlice.actions;
 
 export default locationSlice.reducer;

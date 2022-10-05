@@ -6,17 +6,18 @@ import { selectLocationByID } from "../locationSlice";
 
 interface MarkerProps {
 	id: EntityId;
-	position: google.maps.LatLng;
 	icon: google.maps.Icon;
 }
 
-const AppMapMarker = ({ id, position, icon }: MarkerProps) => {
+const AppMapMarker = ({ id, icon }: MarkerProps) => {
 	const place = useAppSelector((state) => selectLocationByID(state, id));
 	const [visible, setVisible] = useState(false);
 
+	console.log(`Marker at ${place?.lat} ${place?.lng}`);
+
 	return (
 		<Marker
-			position={position}
+			position={{ lat: place?.lat as number, lng: place?.lng as number }}
 			icon={icon}
 			label={visible ? place?.locationName : ""}
 			onMouseOver={(e) => setVisible(true)}
