@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { useAppDispatch } from "../../../app/hooks";
 import { addPlacesResults } from "../locationSlice";
 import { StoreLocation } from "../../../app/stateTypes";

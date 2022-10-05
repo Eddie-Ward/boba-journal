@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Marker } from "@react-google-maps/api";
-
 import { EntityId } from "@reduxjs/toolkit";
 import { useAppSelector } from "../../../app/hooks";
 import { selectLocationByID } from "../locationSlice";
