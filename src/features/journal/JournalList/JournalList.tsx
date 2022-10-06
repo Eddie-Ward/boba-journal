@@ -1,4 +1,4 @@
-import { EntityId } from "@reduxjs/toolkit";
+import { EntityId, nanoid } from "@reduxjs/toolkit";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { EntryJournal } from "../../../app/stateTypes";
@@ -8,7 +8,7 @@ import List from "@mui/material/List";
 
 const samples: Record<EntityId, EntryJournal> = {
 	"1": {
-		ENTRY_ID: "1",
+		ENTRY_ID: nanoid(),
 		date: new Date(2022, 8, 12).getTime(),
 		rating: 2,
 		drink: "Oolong Milk Tea",
@@ -17,7 +17,7 @@ const samples: Record<EntityId, EntryJournal> = {
 		placeID: "A",
 	},
 	"2": {
-		ENTRY_ID: "2",
+		ENTRY_ID: nanoid(),
 		date: new Date(2022, 8, 12).getTime(),
 		rating: 1,
 		drink: "Oolong Milk Tea",
@@ -26,7 +26,7 @@ const samples: Record<EntityId, EntryJournal> = {
 		placeID: "B",
 	},
 	"3": {
-		ENTRY_ID: "3",
+		ENTRY_ID: nanoid(),
 		date: new Date(2022, 8, 16).getTime(),
 		rating: 5,
 		drink: "Oolong Milk Tea",
@@ -35,7 +35,7 @@ const samples: Record<EntityId, EntryJournal> = {
 		placeID: "C",
 	},
 	"4": {
-		ENTRY_ID: "4",
+		ENTRY_ID: nanoid(),
 		date: new Date(2022, 9, 14).getTime(),
 		rating: 4,
 		drink: "Coffee Jelly Milk Tea",
@@ -44,7 +44,7 @@ const samples: Record<EntityId, EntryJournal> = {
 		placeID: "D",
 	},
 	"5": {
-		ENTRY_ID: "5",
+		ENTRY_ID: nanoid(),
 		date: new Date(2022, 8, 14).getTime(),
 		rating: 2.5,
 		drink: "Wintermelon Green Tea",
@@ -63,7 +63,7 @@ const JournalList = () => {
 	}, [dispatch]);
 
 	return (
-		<List>
+		<List sx={{ width: "100%" }}>
 			{journalEntryIDs.map((entryID) => (
 				<JournalEntry key={entryID} entryID={entryID} />
 			))}

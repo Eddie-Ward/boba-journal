@@ -21,8 +21,6 @@ export interface StoreLocation {
 	priceLevel: number;
 	rating: number;
 	totalRatings: number;
-	iconURL: string;
-	iconBGColor: string;
 	journalEntryIDs: EntityId[];
 }
 

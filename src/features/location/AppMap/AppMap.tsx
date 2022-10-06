@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addPlacesResults, selectLocationIDs, setFetchStatus } from "../locationSlice";
@@ -34,14 +34,13 @@ function AppMap({ lat, lng }: MapProps) {
 		return { lat: lat, lng: lng };
 	}, [lat, lng]);
 
-	const bobaIcon: google.maps.Icon = useMemo(
-		() => ({
+	const bobaIcon: google.maps.Icon = useMemo(() => {
+		return {
 			url: BobaMarker,
 			scaledSize: new window.google.maps.Size(30, 30),
 			labelOrigin: new window.google.maps.Point(15, 50),
-		}),
-		[]
-	);
+		};
+	}, []);
 
 	const onLoad = useCallback(
 		(map: google.maps.Map) => {
@@ -57,7 +56,6 @@ function AppMap({ lat, lng }: MapProps) {
 
 				service.textSearch(request, (results, status) => {
 					if (results && status === google.maps.places.PlacesServiceStatus.OK) {
-						console.log(results);
 						// setResults(results);
 						const places: StoreLocation[] = [];
 						results.forEach((res) => {
@@ -73,8 +71,6 @@ function AppMap({ lat, lng }: MapProps) {
 								priceLevel: res.price_level || 2,
 								rating: res.rating || 3,
 								totalRatings: res.user_ratings_total || 0,
-								iconURL: res.icon || "",
-								iconBGColor: res.icon_background_color || "",
 								journalEntryIDs: [],
 							};
 							places.push(storeLocation);
@@ -82,10 +78,13 @@ function AppMap({ lat, lng }: MapProps) {
 						dispatch(addPlacesResults(places));
 						dispatch(setFetchStatus(true));
 					} else {
-						console.log(results);
 						console.log(status);
 					}
 				});
+			} else {
+				console.log("Map re-loaded");
+				// setMarkerIDs(fetchedIDs);
+				// console.log("MarkerIDS: ", markerIDs);
 			}
 		},
 		[dispatch, fetchStatus, center]
@@ -98,4 +97,4 @@ function AppMap({ lat, lng }: MapProps) {
 	);
 }
 
-export default React.memo(AppMap);
+export default AppMap;

@@ -13,13 +13,11 @@ const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<ThemeProvider theme={Theme}>
-				<Provider store={store}>
-					<App />
-				</Provider>
-			</ThemeProvider>
-		</BrowserRouter>
-	</React.StrictMode>
+	<BrowserRouter>
+		<ThemeProvider theme={Theme}>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</ThemeProvider>
+	</BrowserRouter>
 );
