@@ -45,8 +45,6 @@ function AppMap({ lat, lng }: MapProps) {
 	const onLoad = useCallback(
 		(map: google.maps.Map) => {
 			if (!fetchStatus) {
-				console.log("Fetched data");
-
 				const service = new google.maps.places.PlacesService(map);
 				const request: google.maps.places.TextSearchRequest = {
 					location: center,
@@ -56,7 +54,6 @@ function AppMap({ lat, lng }: MapProps) {
 
 				service.textSearch(request, (results, status) => {
 					if (results && status === google.maps.places.PlacesServiceStatus.OK) {
-						// setResults(results);
 						const places: StoreLocation[] = [];
 						results.forEach((res) => {
 							const numLat = Number(res.geometry?.location?.lat());
@@ -81,10 +78,6 @@ function AppMap({ lat, lng }: MapProps) {
 						console.log(status);
 					}
 				});
-			} else {
-				console.log("Map re-loaded");
-				// setMarkerIDs(fetchedIDs);
-				// console.log("MarkerIDS: ", markerIDs);
 			}
 		},
 		[dispatch, fetchStatus, center]

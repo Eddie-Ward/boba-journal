@@ -14,8 +14,6 @@ const AppMapMarker = ({ id, icon }: MarkerProps) => {
 	const dispatch = useAppDispatch();
 	const [visible, setVisible] = useState(false);
 
-	console.log(`Marker at ${place?.lat} ${place?.lng}`);
-
 	return (
 		<Marker
 			position={{ lat: place?.lat as number, lng: place?.lng as number }}

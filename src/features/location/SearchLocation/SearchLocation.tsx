@@ -17,8 +17,6 @@ const SearchLocation = () => {
 	const dispatch = useAppDispatch();
 	const loadStatus = useAppSelector((state) => state.location.locationStatus);
 
-	console.log("Search Location re-rendered");
-
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
 	};
@@ -30,7 +28,6 @@ const SearchLocation = () => {
 			getGeocode({ address: target.innerText })
 				.then((results) => getLatLng(results[0]))
 				.then(({ lat, lng }) => {
-					console.log("Coordinates: ", { lat, lng });
 					dispatch(setLat(lat));
 					dispatch(setLng(lng));
 					dispatch(setLocationStatus(true));

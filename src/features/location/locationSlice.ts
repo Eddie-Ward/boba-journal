@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 
 const locationAdapter = createEntityAdapter<StoreLocation>({
 	selectId: (entry) => entry.PLACE_ID,
-	sortComparer: (a, b) => a.rating - b.rating,
+	sortComparer: (a, b) => b.rating - a.rating,
 });
 
 const initialState = locationAdapter.getInitialState({

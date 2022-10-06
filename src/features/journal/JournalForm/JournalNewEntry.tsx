@@ -46,7 +46,6 @@ const JournalNewEntry = ({ setOpen }: { setOpen: (value: React.SetStateAction<bo
 			drink: formValues.drink || "Milk Tea",
 		};
 
-		console.log(newEntry);
 		dispatch(addNewEntry(newEntry));
 		setFormValues(initialValues);
 		setOpen(false);

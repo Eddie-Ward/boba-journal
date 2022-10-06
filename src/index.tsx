@@ -7,7 +7,6 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import Theme from "./assets/styles/theme";
 
 import App from "./App";
-import "./index.css";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

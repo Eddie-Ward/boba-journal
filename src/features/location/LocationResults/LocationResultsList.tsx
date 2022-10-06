@@ -11,8 +11,6 @@ const LocationResultsList = () => {
 	const listRef = useRef<FixedSizeList<any>>(null);
 	const selected = useAppSelector((state) => state.location.selected);
 
-	console.log(selected);
-
 	useEffect(() => {
 		listRef.current?.scrollToItem(selected, "center");
 	}, [selected]);
