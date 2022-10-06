@@ -6,8 +6,6 @@ import { useAppSelector } from "../../../app/hooks";
 import { selectLocationIDs } from "../locationSlice";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-const testData = ["hi", "bob", "world"];
-
 const LocationResultsList = () => {
 	const placeIDs = useAppSelector((state) => selectLocationIDs(state));
 	const listRef = useRef<FixedSizeList<any>>(null);

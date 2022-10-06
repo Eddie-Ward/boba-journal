@@ -57,7 +57,7 @@ function AppMap({ lat, lng }: MapProps) {
 
 				service.textSearch(request, (results, status) => {
 					if (results && status === google.maps.places.PlacesServiceStatus.OK) {
-						// console.log(results);
+						console.log(results);
 						// setResults(results);
 						const places: StoreLocation[] = [];
 						results.forEach((res) => {
@@ -73,12 +73,17 @@ function AppMap({ lat, lng }: MapProps) {
 								priceLevel: res.price_level || 2,
 								rating: res.rating || 3,
 								totalRatings: res.user_ratings_total || 0,
+								iconURL: res.icon || "",
+								iconBGColor: res.icon_background_color || "",
 								journalEntryIDs: [],
 							};
 							places.push(storeLocation);
 						});
 						dispatch(addPlacesResults(places));
 						dispatch(setFetchStatus(true));
+					} else {
+						console.log(results);
+						console.log(status);
 					}
 				});
 			}

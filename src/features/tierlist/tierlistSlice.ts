@@ -1,4 +1,4 @@
-import { createSlice, createSelector, createEntityAdapter, PayloadAction, EntityId, nanoid } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter, PayloadAction, EntityId } from "@reduxjs/toolkit";
 import { EntryTierlist } from "../../app/stateTypes";
 import { RootState } from "../../app/store";
 import { addFakeEntries, addNewEntry } from "../journal/journalSlice";

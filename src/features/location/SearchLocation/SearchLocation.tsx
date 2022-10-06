@@ -2,7 +2,6 @@ import React from "react";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import Autocomplete, { AutocompleteCloseReason } from "@mui/material/Autocomplete";
 import Textfield from "@mui/material/TextField";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { setLat, setLng, setLocationStatus } from "../locationSlice";
 
@@ -27,9 +26,7 @@ const SearchLocation = () => {
 	const handleSelect = (event: React.SyntheticEvent<Element, Event>, reason: AutocompleteCloseReason) => {
 		if (reason === "selectOption") {
 			const target = event.target as HTMLLIElement;
-			console.log(target);
 			setValue(target.innerText, false);
-			clearSuggestions();
 			getGeocode({ address: target.innerText })
 				.then((results) => getLatLng(results[0]))
 				.then(({ lat, lng }) => {
@@ -42,29 +39,28 @@ const SearchLocation = () => {
 					console.log("Error: ", error);
 				});
 		}
+		clearSuggestions();
 	};
 
 	if (ready) {
 		return (
 			<>
-				<ClickAwayListener onClickAway={() => clearSuggestions()}>
-					<Autocomplete
-						id="search-combo-box"
-						getOptionLabel={(option) => (typeof option === "string" ? option : option.description)}
-						autoComplete
-						includeInputInList
-						filterSelectedOptions
-						disabled={loadStatus}
-						loading={loading}
-						value={data.find((x) => x.description === value)}
-						filterOptions={(x) => x}
-						options={data}
-						onClose={handleSelect}
-						renderInput={(params) => (
-							<Textfield onChange={handleInput} {...params} variant="filled" label="Location" />
-						)}
-					/>
-				</ClickAwayListener>
+				<Autocomplete
+					id="search-combo-box"
+					getOptionLabel={(option) => (typeof option === "string" ? option : option.description)}
+					autoComplete
+					includeInputInList
+					filterSelectedOptions
+					disabled={loadStatus}
+					loading={loading}
+					value={data.find((x) => x.description === value)}
+					filterOptions={(x) => x}
+					options={data}
+					onClose={handleSelect}
+					renderInput={(params) => (
+						<Textfield onChange={handleInput} {...params} variant="filled" label="Location" />
+					)}
+				/>
 			</>
 		);
 	} else {

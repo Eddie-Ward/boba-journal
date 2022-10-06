@@ -1,5 +1,7 @@
 import { EntityId } from "@reduxjs/toolkit";
 
+export type ColorHex = `#${string}`;
+
 export interface EntryJournal {
 	ENTRY_ID: EntityId;
 	date: number;
@@ -19,6 +21,8 @@ export interface StoreLocation {
 	priceLevel: number;
 	rating: number;
 	totalRatings: number;
+	iconURL: string;
+	iconBGColor: string;
 	journalEntryIDs: EntityId[];
 }
 
